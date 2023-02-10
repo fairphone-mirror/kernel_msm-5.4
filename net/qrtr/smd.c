@@ -81,9 +81,7 @@ static int qcom_smd_qrtr_probe(struct rpmsg_device *rpdev)
 		net_id = QRTR_EP_NET_ID_AUTO;
 
 	rt = of_property_read_bool(rpdev->dev.of_node, "qcom,low-latency");
-
 	size = of_property_count_u32_elems(rpdev->dev.of_node, "qcom,non-wake-svc");
-
 	if (size > 0) {
 		if (size > MAX_NON_WAKE_SVC_LEN)
 			size = MAX_NON_WAKE_SVC_LEN;
@@ -93,6 +91,8 @@ static int qcom_smd_qrtr_probe(struct rpmsg_device *rpdev)
 					   svc_arr, size);
 	}
 	rc = qrtr_endpoint_register(&qdev->ep, net_id, rt, svc_arr);
+
+	kfree(svc_arr); /* Modify by T2M zhiming.weng 20230210 for [CTSV13.0R2]SENSOR->Device Suspend Tests fail [X1-1317] */
 
 	if (rc)
 		return rc;
