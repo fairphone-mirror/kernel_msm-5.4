@@ -144,6 +144,21 @@ static int snd_compr_open(struct inode *inode, struct file *f)
 	return ret;
 }
 
+/**
+ * snd_compr_use_pause_in_draining - Allow pause and resume in draining state
+ * @stream: compress substream to set
+ *
+ * Allow pause and resume in draining state.
+ * Only HW driver supports this transition can call this API.
+ */
+void snd_compr_use_pause_in_draining(struct snd_compr_stream *stream)
+{
+	struct snd_compr_file *scf = container_of(stream, struct snd_compr_file, stream);
+
+	scf->use_pause_in_draining = true;
+}
+EXPORT_SYMBOL(snd_compr_use_pause_in_draining);
+
 static int snd_compr_free(struct inode *inode, struct file *f)
 {
 	struct snd_compr_file *data = f->private_data;

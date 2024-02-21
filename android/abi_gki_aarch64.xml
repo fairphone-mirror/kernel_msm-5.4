@@ -27986,7 +27986,7 @@
       <pointer-type-def type-id='277029da' size-in-bits='64' id='3cce524c'/>
       <pointer-type-def type-id='c435a5bb' size-in-bits='64' id='cd97030f'/>
       <pointer-type-def type-id='32358857' size-in-bits='64' id='6d30564f'/>
-      <enum-decl name='__anonymous_enum__3' is-anonymous='yes' filepath='include/linux/phy.h' line='80' column='1' id='08f5ca19'>
+      <enum-decl name='__anonymous_enum__1' is-anonymous='yes' filepath='include/linux/phy.h' line='80' column='1' id='08f5ca19'>
         <underlying-type type-id='9cac1fee'/>
         <enumerator name='PHY_INTERFACE_MODE_NA' value='0'/>
         <enumerator name='PHY_INTERFACE_MODE_INTERNAL' value='1'/>
@@ -98471,7 +98471,7 @@
         <enumerator name='PHY_NOLINK' value='5'/>
       </enum-decl>
       <typedef-decl name='phy_interface_t' type-id='08f5ca19' filepath='include/linux/phy.h' line='107' column='1' id='d61bf978'/>
-      <enum-decl name='__anonymous_enum__3' is-anonymous='yes' filepath='include/linux/phy.h' line='80' column='1' id='08f5ca19'>
+      <enum-decl name='__anonymous_enum__1' is-anonymous='yes' filepath='include/linux/phy.h' line='80' column='1' id='08f5ca19'>
         <underlying-type type-id='9cac1fee'/>
         <enumerator name='PHY_INTERFACE_MODE_NA' value='0'/>
         <enumerator name='PHY_INTERFACE_MODE_INTERNAL' value='1'/>
