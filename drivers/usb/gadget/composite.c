@@ -161,8 +161,10 @@ int config_ep_by_speed_and_alt(struct usb_gadget *g,
 	int want_comp_desc = 0;
 
 	struct usb_descriptor_header **d_spd; /* cursor for speed desc */
+	/*Add by T2M-Bin.Su for FP5U-149 with qualcomm solution [Begin]*/
 	struct usb_composite_dev *cdev;
 	bool incomplete_desc = false;
+	/*Add by T2M-Bin.Su for FP5U-149 with qualcomm solution [End]*/
 
 	if (!g || !f || !_ep)
 		return -EIO;
@@ -171,32 +173,38 @@ int config_ep_by_speed_and_alt(struct usb_gadget *g,
 	switch (g->speed) {
 	case USB_SPEED_SUPER_PLUS:
 		if (gadget_is_superspeed_plus(g)) {
+		/*Add by T2M-Bin.Su for FP5U-149 with qualcomm solution [Begin]*/
 			if (f->ssp_descriptors) {
 				speed_desc = f->ssp_descriptors;
 				want_comp_desc = 1;
 				break;
 			}
 		incomplete_desc = true;
+		/*Add by T2M-Bin.Su for FP5U-149 with qualcomm solution [End]*/
 		}
 		/* fall through */
 	case USB_SPEED_SUPER:
 		if (gadget_is_superspeed(g)) {
+		/*Add by T2M-Bin.Su for FP5U-149 with qualcomm solution [Begin]*/
 			if (f->ss_descriptors) {
 				speed_desc = f->ss_descriptors;
 				want_comp_desc = 1;
 				break;
 			}
 		incomplete_desc = true;
+		/*Add by T2M-Bin.Su for FP5U-149 with qualcomm solution [End]*/
 		}
 		/* fall through */
 	case USB_SPEED_HIGH:
 		if (gadget_is_dualspeed(g)) {
+		/*Add by T2M-Bin.Su for FP5U-149 with qualcomm solution [Begin]*/
 			if (f->ss_descriptors) {
 			speed_desc = f->ss_descriptors;
 			want_comp_desc = 1;
 			break;
-		}
+			}
 		incomplete_desc = true;
+		/*Add by T2M-Bin.Su for FP5U-149 with qualcomm solution [End]*/
 		}
 		/* fall through */
 	default:
@@ -262,7 +270,9 @@ ep_found:
 			break;
 		default:
 			if (comp_desc->bMaxBurst != 0)
+			/*Add by T2M-Bin.Su for FP5U-149 with qualcomm solution [Begin]*/
 				ERROR(cdev, "ep0 bMaxBurst must be 0\n");
+			/*Add by T2M-Bin.Su for FP5U-149 with qualcomm solution [End]*/
 			_ep->maxburst = 1;
 			break;
 		}
