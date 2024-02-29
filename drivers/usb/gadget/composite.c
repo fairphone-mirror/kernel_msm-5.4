@@ -198,9 +198,8 @@ int config_ep_by_speed_and_alt(struct usb_gadget *g,
 	case USB_SPEED_HIGH:
 		if (gadget_is_dualspeed(g)) {
 		/*Add by T2M-Bin.Su for FP5U-149 with qualcomm solution [Begin]*/
-			if (f->ss_descriptors) {
-			speed_desc = f->ss_descriptors;
-			want_comp_desc = 1;
+			if (f->hs_descriptors) {
+			speed_desc = f->hs_descriptors;
 			break;
 			}
 		incomplete_desc = true;
