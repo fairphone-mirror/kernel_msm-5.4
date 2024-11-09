@@ -93,8 +93,6 @@ static int qcom_smd_qrtr_probe(struct rpmsg_device *rpdev)
 	rc = qrtr_endpoint_register(&qdev->ep, net_id, rt, svc_arr);
 	kfree(svc_arr);
 
-	kfree(svc_arr); /* Modify by T2M zhiming.weng 20230210 for [CTSV13.0R2]SENSOR->Device Suspend Tests fail [X1-1317] */
-
 	if (rc)
 		return rc;
 
