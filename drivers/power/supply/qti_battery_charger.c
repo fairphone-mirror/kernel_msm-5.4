@@ -987,6 +987,11 @@ static int usb_psy_get_prop(struct power_supply *psy,
 {
 	struct battery_chg_dev *bcdev = power_supply_get_drvdata(psy);
 	struct psy_state *pst = &bcdev->psy_list[PSY_TYPE_USB];
+#ifdef CONFIG_QGKI
+#ifdef CONFIG_PROJECT_FP5
+	struct psy_state *pst_battery = &bcdev->psy_list[PSY_TYPE_BATTERY];
+#endif
+#endif
 	int prop_id, rc;
 
 	pval->intval = -ENODATA;
@@ -1008,6 +1013,26 @@ static int usb_psy_get_prop(struct power_supply *psy,
 /*Add by T2M-mingwu.zhang for FP5-187 remarks: Touch parameter scene differentiation.[Begin]*/
 #ifdef CONFIG_PROJECT_FP5
 	if (prop == POWER_SUPPLY_PROP_ONLINE){
+		if(pval->intval == 1){
+			rc = read_property_id(bcdev, pst, USB_MOISTURE_DET_STS);
+			if (rc < 0) {
+				pr_err("usb_psy_get_prop get USB_MOISTURE_DET_STS fail\n");
+				return rc;
+			} else {
+				if (pst->prop[USB_MOISTURE_DET_STS] == 1) {
+					rc = read_property_id(bcdev, pst_battery, BATT_STATUS);
+					if (rc < 0) {
+						pr_err("usb_psy_get_prop get BATT_STATUS fail\n");
+						return rc;
+					} else {
+						if (pst_battery->prop[BATT_STATUS] == POWER_SUPPLY_STATUS_DISCHARGING) {
+							pval->intval = 0;
+							pr_info("usb_psy_get_prop , force set usbonline to 1\n");
+						}
+					}
+				}
+			}
+		}
 		tp_get_usb_online(pval->intval);
 	}
 #endif
